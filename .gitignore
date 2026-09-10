@@ -1,0 +1,14 @@
+# Local diagnostics and account data
+*.log
+logs/
+downloads/
+screenshots/
+
+# Operating system / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary build folders
+tmp/
+work/

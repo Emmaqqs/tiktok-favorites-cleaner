@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok Favorites Cleaner (Firefox local)",
+  "version": "0.9.8",
+  "description": "Limpieza local y controlada de videos guardados de TikTok.",
+  "permissions": ["storage", "tabs", "scripting", "webNavigation"],
+  "host_permissions": ["https://*.tiktok.com/*"],
+  "action": {
+    "default_title": "TikTok Favorites Cleaner",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.tiktok.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["page-bridge.js"],
+      "matches": ["https://*.tiktok.com/*"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tiktok-favorites-cleaner-local@example.invalid",
+      "strict_min_version": "121.0"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+name: Bug report
+description: Report incorrect behavior or a browser compatibility problem.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove cookies, tokens, account exports, and unsanitized logs before submitting.
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      placeholder: 0.9.8
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome / Chromium
+        - Firefox
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include batch size, date filters, and whether full verification was enabled.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Include only the smallest useful excerpt and remove account-specific information.

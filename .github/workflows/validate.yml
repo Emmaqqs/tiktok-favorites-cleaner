@@ -1,0 +1,46 @@
+name: Validate extension
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check chrome-extension/content.js
+          node --check chrome-extension/page-bridge.js
+          node --check chrome-extension/background.js
+          node --check firefox-extension/content.js
+          node --check firefox-extension/page-bridge.js
+          node --check firefox-extension/background.js
+
+      - name: Validate extension manifests
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const file of ['chrome-extension/manifest.json', 'firefox-extension/manifest.json']) {
+            const manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+            if (manifest.manifest_version !== 3) throw new Error(`${file}: expected MV3`);
+            if (!manifest.version) throw new Error(`${file}: missing version`);
+          }
+          const chrome = JSON.parse(fs.readFileSync('chrome-extension/manifest.json', 'utf8'));
+          const firefox = JSON.parse(fs.readFileSync('firefox-extension/manifest.json', 'utf8'));
+          if (!chrome.background?.service_worker) throw new Error('Chrome service worker is missing');
+          if (!firefox.background?.scripts?.length) throw new Error('Firefox background script is missing');
+          NODE

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "TikTok Favorites Cleaner (local)",
   "version": "0.9.8",
-  "description": "Limpieza local y controlada de videos guardados de TikTok.",
+  "description": "A local, controlled cleaner for TikTok saved videos.",
   "permissions": ["storage", "tabs", "scripting", "webNavigation", "debugger"],
   "host_permissions": ["https://*.tiktok.com/*"],
   "action": {
